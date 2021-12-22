@@ -20,6 +20,8 @@
 #include <float.h>
 #include "rhessys.h"
 
+#define FLT_MAX 100000000
+
 double calc_resolution(const bool geographic_unit,const struct  base_station_object **basestations, const int station_numbers); 
 #ifdef LIU_NETCDF_READER
 /*Get the station numbers from station file                         */
