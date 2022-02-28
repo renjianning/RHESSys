@@ -179,12 +179,10 @@ void	execute_tec(
 		struct	date);
 
 	void    execute_beetlespread_event(
-						world,
-						command_line,
-						current_date
+        struct	world_object	*,
+		struct	command_line_object	*,
+		struct	date);
 
-
-	);
 	void	execute_state_output_event(
 		struct world_object *,
 		struct date,
@@ -454,7 +452,7 @@ void	execute_tec(
 				/*--------------------------------------------------------------*/
 				/*				increment year  								*/
 				/*-------------------------------------------------------------*/
-                printf("\nYear %d\n", current_date.year);
+                printf("\nYear %lf\n", current_date.year);
 				year = year + 1;
 				current_date.year= next_date.year;
 			}  /*end if*/
