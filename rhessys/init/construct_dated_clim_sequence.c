@@ -124,7 +124,7 @@ struct clim_event_sequence construct_dated_clim_sequence(
 			if (julday(cur_date) == julday(start_date)){
 			    num_days=1;
 			}
-		  	if (julday(cur_date) > julday(tmp_date)){
+		  	if (julday(cur_date) > julday(tmp_date)){ // this is to calculate how many days
 			  num_days = num_days + 1;
 			  tmp_date.year = cur_date.year;
 			  tmp_date.month = cur_date.month;

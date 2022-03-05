@@ -452,7 +452,7 @@ void	execute_tec(
 				/*--------------------------------------------------------------*/
 				/*				increment year  								*/
 				/*-------------------------------------------------------------*/
-                printf("\nYear %lf\n", current_date.year);
+                printf("\nYear %d\n", current_date.year);
 				year = year + 1;
 				current_date.year= next_date.year;
 			}  /*end if*/
