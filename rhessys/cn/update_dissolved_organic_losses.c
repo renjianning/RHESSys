@@ -56,7 +56,7 @@ int update_dissolved_organic_losses(
 	/*------------------------------------------------------*/
 	/*	Local Function Declarations.						*/
 	/*------------------------------------------------------*/
-	
+
 	/*------------------------------------------------------*/
 	/*	Local Variable Definition. 							*/
 	/*------------------------------------------------------*/
@@ -83,49 +83,100 @@ int update_dissolved_organic_losses(
 	if (-1.0*ndf->pmnf_l1s1 > ZERO) {
 		ndf->do_litr1n_loss = DON_production_rate * -1.0*ndf->pmnf_l1s1;
 		cdf->do_litr1c_loss = ndf->do_litr1n_loss * cn_l1;
+        ndf->do_litr1n_loss = max(0, min(ndf->do_litr1n_loss, ns_litr->litr1n));// build the boundary; litr1n
+        cdf->do_litr1c_loss = max(0, min(cdf->do_litr1c_loss, cs_litr->litr1c)); // litr1c
 		}
+    else {
+        ndf->do_litr1n_loss = 0.0;
+        cdf->do_litr1c_loss = 0.0;
+        }
 	/* cellulose litter fluxes */
 	if (-1.0*ndf->pmnf_l2s2 > ZERO) {
 		ndf->do_litr2n_loss = DON_production_rate * -1.0*ndf->pmnf_l2s2;
 		cdf->do_litr2c_loss = ndf->do_litr2n_loss * cn_l2;
+		ndf->do_litr2n_loss = max(0, min(ndf->do_litr2n_loss, ns_litr->litr2n)); //litr2n
+		cdf->do_litr2c_loss = max(0, min(cdf->do_litr2c_loss, cs_litr->litr2c)); //litr2c
+
 		}
+    else {
+         ndf->do_litr2n_loss = 0.0;
+         cdf->do_litr2c_loss = 0.0;
+        }
 
 	/* shielded cellulose litter fluxes */
 	/* note these are based on lignan decay */
 	if (-1.0*ndf->pmnf_l4s3 > ZERO) {
 		ndf->do_litr3n_loss = DON_production_rate * -1.0*ndf->pmnf_l3l2;
 		cdf->do_litr3c_loss = ndf->do_litr3n_loss * cn_l3;
+		ndf->do_litr3n_loss = max(0, min(ndf->do_litr3n_loss, ns_litr->litr3n)); //litr3n
+		cdf->do_litr3c_loss = max(0, min(cdf->do_litr3c_loss, cs_litr->litr3c)); //litr3c
 		}
+    else {
+        ndf->do_litr3n_loss = 0.0;
+        cdf->do_litr3c_loss = 0.0;
+        }
 
 	/* lignan litter fluxes  */
 	if (-1.0*ndf->pmnf_l4s3 > ZERO) {
 		ndf->do_litr4n_loss = DON_production_rate * -1.0*ndf->pmnf_l4s3;
 		cdf->do_litr4c_loss = ndf->do_litr4n_loss * cn_l4;
+		ndf->do_litr4n_loss = max(0, min(ndf->do_litr4n_loss, ns_litr->litr4n)); //litr4n
+		cdf->do_litr4c_loss = max(0, min(cdf->do_litr4c_loss, cs_litr->litr4c)); //litr4c
 		}
-	
+    else {
+        ndf->do_litr4n_loss = 0.0;
+        cdf->do_litr4c_loss = 0.0;
+        }
+
 	/* fast microbial recycling pool */
 	if (-1.0*ndf->pmnf_s1s2 > ZERO) {
 		ndf->do_soil1n_loss = DON_production_rate * -1.0*ndf->pmnf_s1s2;
 		cdf->do_soil1c_loss = ndf->do_soil1n_loss * cn_s1;
+		ndf->do_soil1n_loss = max(0, min(ndf->do_soil1n_loss, ns_soil->soil1n));//soil1n
+		cdf->do_soil1c_loss = max(0, min(cdf->do_soil1c_loss, cs_soil->soil1c));
 		}
+    else {
+         ndf->do_soil1n_loss = 0.0;
+         cdf->do_soil1c_loss = 0.0;
+        }
 
 	/* medium microbial recycling pool */
 	if (-1.0*ndf->pmnf_s2s3 > ZERO) {
 		ndf->do_soil2n_loss = DON_production_rate * -1.0*ndf->pmnf_s2s3;
 		cdf->do_soil2c_loss = ndf->do_soil2n_loss * cn_s2;
+		ndf->do_soil2n_loss = max(0, min(ndf->do_soil2n_loss, ns_soil->soil2n));
+		cdf->do_soil2c_loss = max(0, min(cdf->do_soil2c_loss, cs_soil->soil2c));
 		}
+    else {
+        ndf->do_soil2n_loss = 0.0;
+        cdf->do_soil2c_loss = 0.0;
+        }
 
 	/* slow microbial recycling pool */
 	if (-1.0*ndf->pmnf_s3s4 > ZERO) {
 		ndf->do_soil3n_loss = DON_production_rate * -1.0*ndf->pmnf_s3s4;
 		cdf->do_soil3c_loss = ndf->do_soil3n_loss * cn_s3;
+		ndf->do_soil3n_loss = max(0, min(ndf->do_soil3n_loss, ns_soil->soil3n));
+		cdf->do_soil3c_loss = max(0, min(cdf->do_soil3c_loss, cs_soil->soil3c));
 		}
+    else {
+        ndf->do_soil3n_loss = 0.0;
+        cdf->do_soil3c_loss = 0.0;
+        }
 
 	/* recalcitrant SOM pool (rf = 1.0, always mineralizing) */
 	if (-1.0*ndf->soil4n_to_sminn > ZERO) {
 		ndf->do_soil4n_loss = DON_production_rate * -1.0*ndf->soil4n_to_sminn;
 		cdf->do_soil4c_loss = ndf->do_soil4n_loss * cn_s4;
+		ndf->do_soil4n_loss = max(0, min(ndf->do_soil4n_loss, ns_soil->soil4n));
+		cdf->do_soil4c_loss = max(0, min(cdf->do_soil4c_loss, cs_soil->soil4c));
+
 		}
+    else {
+         ndf->do_soil4n_loss = 0.0;
+         cdf->do_soil4c_loss = 0.0;
+
+        }
 
 	/* update soild and litter stores */
 	cs_litr->litr1c       -= cdf->do_litr1c_loss;
@@ -150,7 +201,7 @@ int update_dissolved_organic_losses(
 	cs_soil->DOC +=  (cdf->do_soil1c_loss + cdf->do_soil2c_loss + cdf->do_soil3c_loss + cdf->do_soil4c_loss);
 	ns_soil->DON  +=  ( ndf->do_soil1n_loss + ndf->do_soil3n_loss + ndf->do_soil2n_loss + ndf->do_soil4n_loss);
 
-	
+
 
 	return (!ok);
 } /* end update_dissolved_organic_losses.c */
