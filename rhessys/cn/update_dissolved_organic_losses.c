@@ -201,6 +201,11 @@ int update_dissolved_organic_losses(
 	cs_soil->DOC +=  (cdf->do_soil1c_loss + cdf->do_soil2c_loss + cdf->do_soil3c_loss + cdf->do_soil4c_loss);
 	ns_soil->DON  +=  ( ndf->do_soil1n_loss + ndf->do_soil3n_loss + ndf->do_soil2n_loss + ndf->do_soil4n_loss);
 
+    if(cs_soil->DOC<ZERO || ns_soil->DON<ZERO)
+        {
+            cs_soil->DOC = 0.0;
+            ns_soil->DON = 0.0;
+        }
 
 
 	return (!ok);

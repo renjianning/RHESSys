@@ -491,15 +491,15 @@ void	output_growth_basin(
 	alitr3_hr /= aarea;
 	alitr4_hr /= aarea;
 
-    if(asurfaceN > 100000) asurfaceN = 0.0; //this is to reduce output error too big numbers
-    if(aDOC > 100000) aDOC = 0.0;
-    if(aDON > 100000) aDON = 0.0;
-    if(astreamflow_DOC>100000) astreamflow_DOC = 0.0;
-    if(astreamflow_DON>100000) astreamflow_DON = 0.0;
-    if(hgwDOC>100000) hgwDOC = 0.0;
-    if(hgwDON>100000) hgwDON = 0.0;
-    if(hgwDOCout>100000) hgwDOCout = 0.0;
-    if(hgwDONout>100000) hgwDONout = 0.0;
+    if(asurfaceN > 100 || asurfaceN < -100) asurfaceN = 0.0; //this is to reduce output error too big numbers
+    if(aDOC > 100 || aDOC < -100) aDOC = 0.0;
+    if(aDON > 100 || aDON < -100) aDON = 0.0;
+    if(astreamflow_DOC>100 || astreamflow_DOC < -100) astreamflow_DOC = 0.0;
+    if(astreamflow_DON>100 || astreamflow_DON < -100) astreamflow_DON = 0.0;
+    if(hgwDOC>100 || hgwDOC < -100) hgwDOC = 0.0;
+    if(hgwDON>100 || hgwDON < -100) hgwDON = 0.0;
+    if(hgwDOCout>100 || hgwDOCout< -100) hgwDOCout = 0.0;
+    if(hgwDONout>100 || hgwDONout < -100) hgwDONout = 0.0;
 
 	fprintf(outfile,"%d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %11.9lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n",
 		current_date.day,
