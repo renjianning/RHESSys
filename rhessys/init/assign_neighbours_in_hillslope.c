@@ -73,7 +73,7 @@ int assign_neighbours_in_hillslope( struct neighbour_object *neighbours,
 			if( (patch_ID != 0) && (zone_ID != 0) && (hill_ID != 0) ) {
 				neigh = find_patch_in_hillslope( patch_ID, zone_ID, hillslope);
 			}else{	
-        fprintf( stderr, "cannot find patch %d in hillslope %d.\n", patch_ID, hill_ID );
+        			 fprintf( stderr, "cannot find patch %d in hill_ID %d, [zone_ID %d], [gamma %lf], [n_neig %d] \n", patch_ID, hill_ID, zone_ID, gamma, num_neighbours);
         exit(EXIT_FAILURE); 
       }
 
