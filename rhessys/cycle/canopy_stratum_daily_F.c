@@ -1993,6 +1993,39 @@ void	canopy_stratum_daily_F(
             patch[0].canopy_strata[0][0].defaults[0][0].epc.max_lai >=10
             )
         {
+
+        /* add a harvest option to beetle effect model, if current.year == log_year, make snag and readneedlec zero. */
+
+        if (current_date.year == world[0].defaults[0].beetle[0].logging_year && current_date.month == 9 && current_date.day == 30 &&
+            world[0].defaults[0].beetle[0].logging_flag == 1 && (stratum[0].cs.snagc + stratum[0].cs.delay_snagc) >= ZERO ) {
+
+            if (stratum[0].ID == 7788) printf("\n loging the snags %lf \n", stratum[0].cs.snagc + stratum[0].cs.delay_snagc);
+
+            if ((stratum[0].cs.redneedlec + stratum[0].cs.delay_redneedlec) > ZERO)
+                {
+                    stratum[0].cs.redneedlec = ZERO; // remember to remove the snag_sequency tracking too
+                    stratum[0].cs.delay_redneedlec = ZERO;
+                  }
+             if ((stratum[0].cs.snagc + stratum[0].cs.delay_snagc) > ZERO)
+                {
+                    stratum[0].cs.snagc = ZERO;
+                    stratum[0].cs.delay_snagc = ZERO;
+                    }
+             if ((stratum[0].ns.redneedlen + stratum[0].ns.delay_redneedlen) > ZERO)
+                {
+                    stratum[0].ns.redneedlen = ZERO;
+                    stratum[0].ns.delay_redneedlen = ZERO;
+                }
+             if ((stratum[0].ns.snagn + stratum[0].ns.delay_snagn) > ZERO)
+                {
+                    stratum[0].ns.snagn = ZERO;
+                    stratum[0].ns.delay_snagn = ZERO;
+                }
+
+            }
+
+
+
         /* update the snag pool from burning before you update it, only happens if firespread command line is on and there is snag pool*/
         /* due to the snagc is not the total snag, when snagc =0 the delay_snag is >0, so the condition snagc>0, make the fire can not burn the delay_snag*/
         /* so it is better to use the Snagc >= 0 condition for next step calculations, and just to make sure there is no negative values in flux out */
@@ -2109,9 +2142,22 @@ void	canopy_stratum_daily_F(
 
        for (inx=0; inx < world[0].defaults[0].beetle[0].num_snag_sequence; inx=inx+24){ // here 300 is hard coded here, should figure out some other method.
 
-        clim_event = patch[0].base_stations[0][0].dated_input[0].beetle_attack.seq[inx];
+        clim_event = patch[0].base_stations[0][0].dated_input[0].beetle_attack.seq[inx]; // this is prescribed beetle-caused mortality
         clim_event1 = stratum[0].redneedle_sequence.seq[inx];
         clim_event2 = stratum[0].snag_sequence.seq[inx];
+
+        // add the logging event 20220731
+
+        if (clim_event2.Cvalue > 0.01 && clim_event2.Cvalue<100 &&
+            clim_event.value > ZERO && clim_event.value < 1 && world[0].defaults[0].beetle[0].logging_flag == 1 &&
+            current_date.year == world[0].defaults[0].beetle[0].logging_year && current_date.month == 9 && current_date.day == 30 )
+            {
+                stratum[0].redneedle_sequence.seq[inx].Cvalue = ZERO;
+                stratum[0].redneedle_sequence.seq[inx].Nvalue = ZERO;
+                stratum[0].snag_sequence.seq[inx].Cvalue = ZERO;
+                stratum[0].snag_sequence.seq[inx].Nvalue = ZERO;
+                }
+
 
         if (clim_event2.Cvalue > 0.01 && clim_event2.Cvalue<100 && command_line[0].firespread_flag ==1 &&
             clim_event.value > ZERO && clim_event.value < 1 &&

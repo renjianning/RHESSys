@@ -3117,6 +3117,9 @@ struct beetle_default {
      int lai_include_redneedle; //Control if updating lai considering the red leaf and snag
      int pai_include_snag;
      int height_include_snag;
+     // for logging
+     int logging_flag;
+     int logging_year;
 
 };
 

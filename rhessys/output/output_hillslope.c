@@ -125,6 +125,7 @@ void	output_hillslope(				int basinID,
     aprecip = 0.0;
     atmin = 0.0;
     atmax = 0.0;
+    zone_area = 0.0;
 
 
 
