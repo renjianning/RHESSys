@@ -4,30 +4,54 @@
 \alias{world_gen}
 \title{World Gen}
 \usage{
-world_gen(template, worldfile, type = "GRASS", typepars, overwrite = NULL)
+world_gen(
+  template,
+  worldfile,
+  type = "Raster",
+  typepars,
+  overwrite = FALSE,
+  header = FALSE,
+  unique_strata_ID = TRUE,
+  asprules = NULL,
+  seq_patch_IDs = FALSE,
+  output_patch_map = FALSE,
+  wrapper = FALSE
+)
 }
 \arguments{
 \item{template}{Template file used to generate worldfile for RHESSys. Generic strucutre is:
 <state variable> <operator> <value/map>. Levels are difined by lines led by "_", structured
-<levelname> <map> <count>. Whitespace and tabs are ignored.}
+<levelname> <map> <count>. Whitespace and tabs are ignored.  Maps referred to must be supplied
+by your chosen method of data input(raster), set using the "type" arguement.}
 
 \item{worldfile}{Name and path of worldfile to be created.}
 
-\item{type}{GIS type to be used. Currently only supports GRASS GIS.}
+\item{type}{Input file type to be used. Default is raster. "Raster" type will use rasters
+in GeoTiff or equivalent format (see Raster package), with file names  matching those indicated in the template.
+ASCII is supported, but 0's cannot be used as values for data.}
 
-\item{typepars}{Parameters needed based on GIS type used. For Grass GIS type, typepars is a
-vector of 5 character strings. GRASS GIS parameters: gisBase, home, gisDbase, location, mapset.
-Example parameters are included in an example script included in this package. See initGRASS help
-for more info on parameters.}
+\item{typepars}{Parameters needed based on input data type used. If using raster type, typepars should be a string
+indicating the path to a folder containing the raster files that are referenced by the template.}
 
-\item{overwrite}{Overwrite existing worldfile. Overwrites on any non-NULL arguement.}
+\item{overwrite}{Overwrite existing worldfile. FALSE is default and prompts a menu if worldfile already exists.}
+
+\item{header}{TRUE/FALSE flag for the creation of a header file. Will have same name (and location) as "name" argument, but with ".hdr" suffix.}
+
+\item{unique_strata_ID}{Takes input map or value for canopy strata ID and appends either a 1 or 2 dpending on which canopy it is. Defaults to TRUE.}
+
+\item{asprules}{The path and filename to the rules file.  Using this argument enables aspatial patches.}
+
+\item{seq_patch_IDs}{TRUE/FALSE should patch map IDs be overwritten with sequential integers.}
+
+\item{output_patch_map}{TRUE/FALSE should the new patch map with sequential IDs be output to file.}
+
+\item{wrapper}{internal argument to track if being run as all-in-one}
 }
 \description{
-Generates world files for use in RHESSys based on input template and maps,
-currently includes functionality for GRASS GIS, and works on both unix and windows. 5/16/17.
+Generates world files for use in RHESSys based on input template and maps.
 }
 \seealso{
-\code{\link{initGRASS}}, \code{\link{readRAST}}
+\code{\link{raster}}
 }
 \author{
 Will Burke

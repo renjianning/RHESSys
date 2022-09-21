@@ -4,20 +4,33 @@
 \alias{GIS_read}
 \title{GIS_read}
 \usage{
-GIS_read(type, readin, typepars)
+GIS_read(
+  maps_in,
+  type = "raster",
+  typepars,
+  map_info = NULL,
+  seq_patch_IDs = FALSE,
+  output_patch_map = FALSE
+)
 }
 \arguments{
-\item{type}{GIS type to be used. Currently only supports GRASS GIS.}
+\item{maps_in}{Character vector of maps to be read in by the chosen method.}
 
-\item{readin}{Template file or vector containing character strings of map names.}
+\item{type}{Legacy option - now ONLY accepts "raster" or "Raster"}
 
-\item{typepars}{Parameters needed based on GIS type used. For Grass GIS type, typepars is a
-vector of 5 character strings. GRASS GIS parameters: gisBase, home, gisDbase, location, mapset.
-Example parameters are included in an example script included in this package. See initGRASS help
-for more info on parameters.}
+\item{typepars}{The file path to a folder containing the rasters specified via template or other args. TO BE RENAMED TO MAP_DIR.}
+
+\item{map_info}{Two column matrix of map types and names, output of `read_template()``}
+
+\item{seq_patch_IDs}{TRUE/FALSE should patch map IDs be overwritten with sequential integers.}
+
+\item{output_patch_map}{TRUE/FALSE should the new patch map with sequential IDs be output to file.}
+}
+\value{
+Returns a LargeSpatialGridDataFrame containing all the maps indicated in read_in
 }
 \description{
-Read in GIS maps. Returns a spatial data frame containing all maps. 6/6/17.
+Read in GIS maps. Returns a spatial data frame containing all maps. 2/14/18.
 }
 \author{
 Will Burke
