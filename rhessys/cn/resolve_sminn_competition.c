@@ -76,7 +76,7 @@ int resolve_sminn_competition(
 
 	//ndf->perc_inroot = perc_inroot;
 	ns_soil->perc_inroot = perc_inroot;
-    sum_avail = perc_inroot * sum_avail;
+    //sum_avail = perc_inroot * sum_avail; //make all N available for uptake 20221206 nren
     // sum_avail also needs to consider the N_sat at saturated zone
     double avail_rtzN = 0.0;
     patch[0].rtzSatNH4 = 0.0;
