@@ -380,7 +380,8 @@ void		patch_daily_F(
 
 	void	compute_fire_effects(
 		struct patch_object *,
-		double);
+		double,
+		struct command_line_object *);
     void  compute_beetle_effects( //NREN 20180629
         struct patch_object *,
         int inx,
@@ -691,7 +692,7 @@ void		patch_daily_F(
 				printf("\n Implementing fire effects with a pspread of %f in patch %d\n", pspread, patch[0].ID);
 				compute_fire_effects(
 					patch,
-					pspread);
+					pspread, command_line);
 
 			}
 		}
@@ -777,7 +778,8 @@ void		patch_daily_F(
                 attack_mortality = world[0].defaults[0].beetle[0].attack_mortality;
                 compute_fire_effects(
                     patch,
-                    attack_mortality
+                    attack_mortality,
+                    command_line
 
                 );
 
