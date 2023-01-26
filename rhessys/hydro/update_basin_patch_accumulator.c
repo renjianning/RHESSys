@@ -139,7 +139,7 @@ void update_basin_patch_accumulator(
 
 				if ((command_line[0].output_flags.monthly == 1)
 						&& (command_line[0].p != NULL )) {
-					patch[0].acc_month.theta += patch[0].rootzone.S;
+					patch[0].acc_month.theta += patch[0].rootzone.S; //need
 					patch[0].acc_month.sm_deficit +=
 							max(0.0,
 									(patch[0].sat_deficit-patch[0].rz_storage-patch[0].unsat_storage));
@@ -147,8 +147,10 @@ void update_basin_patch_accumulator(
 							+ patch[0].evaporation_surf
 							+ patch[0].exfiltration_unsat_zone
 							+ patch[0].exfiltration_sat_zone
-							+ +patch[0].transpiration_sat_zone
+							+ patch[0].transpiration_sat_zone
 							+ patch[0].evaporation);
+                    patch[0].acc_month.PET += patch[0].PET; //new initialize, set to zero and ret to zero
+                    patch[0].acc_month.trans += patch[0].transpiration_unsat_zone + patch[0].transpiration_sat_zone; //new
 					patch[0].acc_month.denitrif += patch[0].ndf.denitrif;
 					patch[0].acc_month.nitrif += patch[0].ndf.sminn_to_nitrate;
 					patch[0].acc_month.mineralized +=
@@ -160,7 +162,7 @@ void update_basin_patch_accumulator(
 					patch[0].acc_month.DOC_loss +=
 							(patch[0].soil_cs.DOC_Qout_total
 									- patch[0].soil_cs.DOC_Qout_total);
-					patch[0].acc_month.psn += patch[0].net_plant_psn;
+					patch[0].acc_month.psn += patch[0].net_plant_psn; //need
 					patch[0].acc_month.snowpack =
 							max(patch[0].snowpack.water_equivalent_depth, patch[0].acc_month.snowpack);
 					patch[0].acc_month.lai =

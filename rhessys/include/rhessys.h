@@ -425,6 +425,7 @@ struct accumulate_patch_object
    int num_days;
    double et_decom_mean;
    double et_decom;
+
 };
 
 
@@ -2965,9 +2966,19 @@ struct  stratum_default
         double lai;
         double lwp;
         double minNSC;
-	double stemc;
-	double rootc;
-	double leafc;
+        double stemc;
+        double rootc;
+        double leafc;
+        //new accumulative variable for carbon recovery analysis
+        double gpsn;
+        double total_mr;
+        double total_gr;
+        double cpool_to_gresp_store;
+        double frootc;
+        double crootc;
+        double cpool;
+        double cwdc;
+
         };
 
 

@@ -103,7 +103,7 @@ void add_headers(struct world_output_file_object *world_output_files,
 	/*	Daily 							*/
 	/*--------------------------------------------------------------*/
 	outfile = world_output_files[0].basin[0].daily;
-	fprintf(outfile,"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n" ,
+	fprintf(outfile,"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n" ,
 		"day",
 		"month",
 		"year",
@@ -163,7 +163,7 @@ void add_headers(struct world_output_file_object *world_output_files,
 		"Kdown","Ldown","Kup","Lup",
 		"Kstar_can","Kstar_soil","Kstar_snow",
 		"Lstar_can","Lstar_soil","Lstar_snow",
-		"LE_canopy","LE_soil","LE_snow","Lstar_strat","canopydrip","ga", "litr_decomp", "decom_landclim_daily");
+		"LE_canopy","LE_soil","LE_snow","Lstar_strat","canopydrip","ga", "litr_decomp", "decom_landclim_daily", "cwdc");
 
 	/*--------------------------------------------------------------*/
 	/*	Monthly							*/
@@ -433,7 +433,7 @@ void add_headers(struct world_output_file_object *world_output_files,
 	/*--------------------------------------------------------------*/
 	outfile = world_output_files[0].patch[0].monthly;
 	check = fprintf(outfile,
-		"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n",
+		"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n",
 		"month",
 		"year",
 		"basinID",
@@ -446,7 +446,7 @@ void add_headers(struct world_output_file_object *world_output_files,
 		"et",
 		"psn",
 		"DOC",
-		"DON","lai","nitrif","mineralized","uptake","theta","snow","area","nitrate","sminn", "burn");
+		"DON","lai","nitrif","mineralized","uptake","theta","snow","area","nitrate","sminn", "trans", "pet");
 	/*--------------------------------------------------------------*/
 	/*	Yearly							*/
 	/*--------------------------------------------------------------*/
@@ -516,14 +516,15 @@ void add_headers(struct world_output_file_object *world_output_files,
 	/*	Monthly							*/
 	/*--------------------------------------------------------------*/
 	outfile = world_output_files[0].canopy_stratum[0].monthly;
-	fprintf(outfile,"%s %s %s %s %s %s %s\n",
+	fprintf(outfile,"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n",
+		"month",
 		"year",
 		"basinID",
 		"hillID",
 		"zoneID",
 		"patchID",
 		"stratumID",
-		"above_plantc");
+		"psn", "gpsn", "total_mr", "total_gr", "cpool_to_gresp_store", "leafc", "frootc", "crootc", "stemc", "cpool", "cwdc");
 	/*--------------------------------------------------------------*/
 	/*	Yearly							*/
 	/*--------------------------------------------------------------*/

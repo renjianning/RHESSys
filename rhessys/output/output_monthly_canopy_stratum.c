@@ -39,7 +39,7 @@ void	output_monthly_canopy_stratum( int basinID, int hillID,
 	/*------------------------------------------------------*/
 	/*	Local Function Declarations.						*/
 	/*------------------------------------------------------*/
-	
+
 	/*------------------------------------------------------*/
 	/*	Local Variable Definition. 							*/
 	/*------------------------------------------------------*/
@@ -47,7 +47,7 @@ void	output_monthly_canopy_stratum( int basinID, int hillID,
 	/*--------------------------------------------------------------*/
 	/*	output variables					*/
 	/*--------------------------------------------------------------*/
-	fprintf(outfile,"%4d %4d %d %d %d %d %d %lf \n",
+	fprintf(outfile,"%d %d %d %d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n",
 		current_date.month,
 		current_date.year,
 		basinID,
@@ -55,16 +55,31 @@ void	output_monthly_canopy_stratum( int basinID, int hillID,
 		zoneID,
 		patchID,
 		stratum[0].ID,
-		(stratum[0].acc_month.leafc+stratum[0].acc_month.stemc) / stratum[0].acc_month.length);
+		stratum[0].acc_month.psn*1000,
+		stratum[0].acc_month.gpsn*1000,
+		stratum[0].acc_month.total_mr*1000,
+		stratum[0].acc_month.total_gr*1000,
+		stratum[0].acc_month.cpool_to_gresp_store*1000,
+		stratum[0].acc_month.leafc / stratum[0].acc_month.length * 1000,
+		stratum[0].acc_month.frootc / stratum[0].acc_month.length * 1000,
+		stratum[0].acc_month.crootc / stratum[0].acc_month.length * 1000,
+		stratum[0].acc_month.stemc / stratum[0].acc_month.length * 1000,
+		stratum[0].acc_month.cpool / stratum[0].acc_month.length * 1000,
+		stratum[0].acc_month.cwdc / stratum[0].acc_month.length * 1000);
 	/*--------------------------------------------------------------*/
 	/*	reset accumulator variables				*/
 	/*--------------------------------------------------------------*/
-	stratum[0].acc_month.lai = 0.0;
-	stratum[0].acc_month.psn = 0.0;
-	stratum[0].acc_month.lwp = 0.0;
-	stratum[0].acc_month.length = 0;
-	stratum[0].acc_month.rootc = 0.0;
-	stratum[0].acc_month.stemc = 0.0;
-	stratum[0].acc_month.leafc = 0.0;
+		stratum[0].acc_month.psn = 0.0;
+		stratum[0].acc_month.gpsn = 0.0;
+		stratum[0].acc_month.total_mr = 0.0;
+		stratum[0].acc_month.total_gr = 0.0;
+		stratum[0].acc_month.cpool_to_gresp_store = 0.0;
+		stratum[0].acc_month.leafc = 0.0;
+		stratum[0].acc_month.frootc = 0.0;
+		stratum[0].acc_month.crootc = 0.0;
+		stratum[0].acc_month.stemc = 0.0;
+		stratum[0].acc_month.cpool = 0.0;
+		stratum[0].acc_month.cwdc = 0.0;
+
 	return;
 } /*end output_monthly_canopy_stratum*/

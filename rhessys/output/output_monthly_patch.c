@@ -38,7 +38,7 @@ void	output_monthly_patch(
 	/*------------------------------------------------------*/
 	/*	Local Function Declarations.						*/
 	/*------------------------------------------------------*/
-	
+
 	/*------------------------------------------------------*/
 	/*	Local Variable Definition. 							*/
 	/*------------------------------------------------------*/
@@ -47,9 +47,9 @@ void	output_monthly_patch(
 
 	if (patch[0].acc_month.leach > 0.0)
 		patch[0].acc_month.leach = log(patch[0].acc_month.leach*1000.0*1000.0);
-		
+
 	check = fprintf(outfile,
-		"%d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %8.3f %f %f %f %f %f %f \n",
+		"%d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f\n",
 		current_date.month,
 		current_date.year,
 		basinID,
@@ -58,8 +58,8 @@ void	output_monthly_patch(
 		patch[0].ID,
 		patch[0].acc_month.leach * 1000.0,
 		patch[0].acc_month.denitrif * 1000.0,
-		patch[0].acc_month.sm_deficit  / patch[0].acc_month.length * 1000.0,
-		patch[0].acc_month.et * 1000.0,
+		patch[0].acc_month.sm_deficit  / patch[0].acc_month.length * 1000.0, //need
+		patch[0].acc_month.et * 1000.0, //need
 		patch[0].acc_month.psn * 1000.0,
 		patch[0].acc_month.DOC_loss * 1000.0,
 		patch[0].acc_month.DON_loss * 1000.0,
@@ -71,8 +71,9 @@ void	output_monthly_patch(
 		patch[0].acc_month.snowpack * 1000.0 ,
 		patch[0].area,
 		patch[0].soil_ns.nitrate+patch[0].surface_NO3,
-		patch[0].soil_ns.sminn
-
+		patch[0].soil_ns.sminn,
+		patch[0].acc_month.trans * 1000.0, //new
+		patch[0].acc_month.PET * 1000.0
 		);
 
 	if (check <= 0) {
@@ -96,5 +97,8 @@ void	output_monthly_patch(
 	patch[0].acc_month.uptake = 0.0;
 	patch[0].acc_month.theta = 0.0;
 	patch[0].acc_month.snowpack = 0.0;
+
+	patch[0].acc_month.trans = 0.0;
+	patch[0].acc_month.PET = 0.0;
 	return;
 } /*end output_monthly_patch*/

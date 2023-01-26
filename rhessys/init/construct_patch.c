@@ -254,6 +254,7 @@ struct patch_object *construct_patch(
 	patch[0].acc_month.PET = 0.0;
 	patch[0].acc_month.psn = 0.0;
 	patch[0].acc_month.num_threshold = 0;
+	patch[0].acc_month.trans = 0.0;
 
 
 	patch[0].acc_year.burn = 0.0;

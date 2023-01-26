@@ -67,7 +67,7 @@ void	output_basin(			int routing_flag,
 	double atmin, atmax, atavg, avpd, asnow;
 	double	hgwQout;
 	double aarea, hill_area, zone_area, basin_area;
-	double agpsn, aresp, ags, arootdepth, aleafc, afrootc, awoodc;
+	double agpsn, aresp, ags, arootdepth, aleafc, afrootc, awoodc, acwdc;
 	double aheight;
 	double aevap_can, aevap_lit, aevap_soil, alitrc;
 	double aKdown, aLdown;
@@ -164,6 +164,7 @@ void	output_basin(			int routing_flag,
 	alitrc = 0.0;
 	acdrip = 0.0;
 	acga = 0.0;
+	acwdc = 0.0;
 
 
 	for (h=0; h < basin[0].num_hillslopes; h++){
@@ -253,7 +254,7 @@ void	output_basin(			int routing_flag,
 							 patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].snow_stored )
 							* patch[0].area;
 						apsn += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction
-							* patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.net_psn
+							* patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.net_psn // this calculation is more acurrate but missing the term of cpool_to_gresp_store in line 282
 							* patch[0].area;
 		anppcum += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction
 							* patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.nppcum
@@ -272,8 +273,8 @@ void	output_basin(			int routing_flag,
 							* patch[0].area;
 						agpsn += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction * patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.psn_to_cpool
 							* patch[0].area;
-						aresp += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction
-							* (patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.leaf_day_mr + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.cpool_leaf_gr
+						aresp += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction // this calculation missing the growth transpiration of from transfer to root stem et al; check compute_growth_resp.c line 49 and
+							* (patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.leaf_day_mr + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.cpool_leaf_gr // compute_maint_resp.c line 109
 						   + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.leaf_night_mr +	patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.livestem_mr
 						   + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.cpool_livestem_gr + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.livecroot_mr
 						   + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cdf.cpool_livecroot_gr
@@ -301,7 +302,9 @@ void	output_basin(			int routing_flag,
 						   + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.deadcrootc_transfer
 						   + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.deadstemc_transfer
 						   + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.cwdc + patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.cpool)
-							* patch[0].area;
+							* patch[0].area; // why this plant carbon includes woodc
+                        acwdc += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cs.cwdc * patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction * patch[0].area;
+
 						acsnow += patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].cover_fraction
 							* (	patch[0].canopy_strata[(patch[0].layers[layer].strata[c])][0].snow_stored )
 							* patch[0].area;
@@ -376,6 +379,7 @@ void	output_basin(			int routing_flag,
 	aleafc /= aarea;
 	afrootc /= aarea;
 	awoodc /= aarea;
+	acwdc /= aarea; //new
 	asnowmelt /= aarea;
 	acanopysubl /= aarea;
 	aheight /= aarea;
@@ -433,7 +437,7 @@ void	output_basin(			int routing_flag,
 	var_acctrans /= aarea;
 
 
-	fprintf(outfile,"%d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n",
+	fprintf(outfile,"%d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n",
 		date.day,
 		date.month,
 		date.year,
@@ -508,7 +512,7 @@ void	output_basin(			int routing_flag,
 		aLE_snow,
 		acLstar,
 		acdrip*1000,
-		acga*1000, alitr_decomp, adecom_daily
+		acga*1000, alitr_decomp, adecom_daily, acwdc
 		);
 	return;
 } /*end output_basin*/

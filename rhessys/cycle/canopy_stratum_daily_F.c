@@ -2293,11 +2293,20 @@ void	canopy_stratum_daily_F(
 	/*      update accumlator variables                             */
 	/*--------------------------------------------------------------*/
 	if((command_line[0].output_flags.monthly == 1)&&(command_line[0].c != NULL)){
-		stratum[0].acc_month.psn += stratum[0].cdf.psn_to_cpool - stratum[0].cdf.total_mr;
+		stratum[0].acc_month.psn += (stratum[0].cdf.psn_to_cpool - stratum[0].cdf.total_mr - stratum[0].cdf.total_gr);
+		stratum[0].acc_month.gpsn += stratum[0].cdf.psn_to_cpool; //new declear and initialize 0 and reset to zero
+		stratum[0].acc_month.total_mr += stratum[0].cdf.total_mr;
+		stratum[0].acc_month.total_gr += stratum[0].cdf.total_gr;
+		stratum[0].acc_month.cpool_to_gresp_store += stratum[0].cdf.cpool_to_gresp_store;
+
 		stratum[0].acc_month.lwp += stratum[0].epv.psi;
-		stratum[0].acc_month.leafc += stratum[0].cs.leafc;
-		stratum[0].acc_month.rootc += stratum[0].cs.frootc+stratum[0].cs.live_crootc+stratum[0].cs.dead_crootc;
-		stratum[0].acc_month.stemc += stratum[0].cs.live_stemc+stratum[0].cs.dead_stemc;
+		stratum[0].acc_month.leafc += stratum[0].cs.leafc + stratum[0].cs.leafc_store + stratum[0].cs.leafc_transfer; //changed by Ning
+		stratum[0].acc_month.frootc += stratum[0].cs.frootc + stratum[0].cs.frootc_store + stratum[0].cs.frootc_transfer;
+		stratum[0].acc_month.crootc += stratum[0].cs.dead_crootc + stratum[0].cs.deadcrootc_store + stratum[0].cs.deadcrootc_transfer + stratum[0].cs.live_crootc + stratum[0].cs.livecrootc_store + stratum[0].cs.livecrootc_transfer;
+
+		stratum[0].acc_month.stemc += stratum[0].cs.live_stemc + stratum[0].cs.livestemc_store + stratum[0].cs.livestemc_transfer + stratum[0].cs.dead_stemc + stratum[0].cs.deadstemc_store + stratum[0].cs.deadstemc_transfer;
+		stratum[0].acc_month.cpool += stratum[0].cs.cpool;
+		stratum[0].acc_month.cwdc += stratum[0].cs.cwdc;
 		stratum[0].acc_month.length += 1;
 	}
 	/* output fire effect */

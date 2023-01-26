@@ -421,6 +421,16 @@ struct canopy_strata_object *construct_canopy_strata(
 	canopy_strata[0].acc_month.lwp = 0.0;
 	canopy_strata[0].acc_month.length = 0;
 
+	//new
+	canopy_strata[0].acc_month.gpsn = 0.0;
+	canopy_strata[0].acc_month.total_mr = 0.0;
+	canopy_strata[0].acc_month.total_gr = 0.0;
+	canopy_strata[0].acc_month.cpool_to_gresp_store = 0.0;
+	canopy_strata[0].acc_month.frootc = 0.0;
+	canopy_strata[0].acc_month.crootc = 0.0;
+	canopy_strata[0].acc_month.cpool = 0.0;
+	canopy_strata[0].acc_month.cwdc = 0.0;
+
 	//fire
 	canopy_strata[0].fe.acc_year.length = 0.0;
 	canopy_strata[0].fe.acc_year.length_understory = 0.0;
