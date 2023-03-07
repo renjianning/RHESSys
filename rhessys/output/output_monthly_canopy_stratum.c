@@ -47,7 +47,7 @@ void	output_monthly_canopy_stratum( int basinID, int hillID,
 	/*--------------------------------------------------------------*/
 	/*	output variables					*/
 	/*--------------------------------------------------------------*/
-	fprintf(outfile,"%d %d %d %d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n",
+	fprintf(outfile,"%d %d %d %d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %d %d\n",
 		current_date.month,
 		current_date.year,
 		basinID,
@@ -65,7 +65,7 @@ void	output_monthly_canopy_stratum( int basinID, int hillID,
 		stratum[0].acc_month.crootc / stratum[0].acc_month.length * 1000,
 		stratum[0].acc_month.stemc / stratum[0].acc_month.length * 1000,
 		stratum[0].acc_month.cpool / stratum[0].acc_month.length * 1000,
-		stratum[0].acc_month.cwdc / stratum[0].acc_month.length * 1000);
+		stratum[0].acc_month.cwdc / stratum[0].acc_month.length * 1000, stratum[0].acc_month.length, stratum[0].defaults[0][0].ID);
 	/*--------------------------------------------------------------*/
 	/*	reset accumulator variables				*/
 	/*--------------------------------------------------------------*/
@@ -74,6 +74,7 @@ void	output_monthly_canopy_stratum( int basinID, int hillID,
 		stratum[0].acc_month.total_mr = 0.0;
 		stratum[0].acc_month.total_gr = 0.0;
 		stratum[0].acc_month.cpool_to_gresp_store = 0.0;
+		stratum[0].acc_month.length = 0.0; // this is important
 		stratum[0].acc_month.leafc = 0.0;
 		stratum[0].acc_month.frootc = 0.0;
 		stratum[0].acc_month.crootc = 0.0;

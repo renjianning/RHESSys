@@ -516,7 +516,7 @@ void add_headers(struct world_output_file_object *world_output_files,
 	/*	Monthly							*/
 	/*--------------------------------------------------------------*/
 	outfile = world_output_files[0].canopy_stratum[0].monthly;
-	fprintf(outfile,"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n",
+	fprintf(outfile,"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n",
 		"month",
 		"year",
 		"basinID",
@@ -524,7 +524,7 @@ void add_headers(struct world_output_file_object *world_output_files,
 		"zoneID",
 		"patchID",
 		"stratumID",
-		"psn", "gpsn", "total_mr", "total_gr", "cpool_to_gresp_store", "leafc", "frootc", "crootc", "stemc", "cpool", "cwdc");
+		"psn", "gpsn", "total_mr", "total_gr", "cpool_to_gresp_store", "leafc", "frootc", "crootc", "stemc", "cpool", "cwdc", "month_length", "vegID");
 	/*--------------------------------------------------------------*/
 	/*	Yearly							*/
 	/*--------------------------------------------------------------*/
