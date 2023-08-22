@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "rhessys.h"
 
-void sort_patch_layers( struct patch_object *patch)
+void sort_patch_layers( struct patch_object *patch, int *rec)
 {
 	/*--------------------------------------------------------------*/
 	/*  Local function declaration                                  */
@@ -185,10 +185,12 @@ void sort_patch_layers( struct patch_object *patch)
 			printf("\n carbon will not balance for this day");
 
 			/* recursively call patch layers to fix this - should always work because we are changing the height */
-			sort_patch_layers(patch);
-		}
+			rec += 1;
+			sort_patch_layers(patch, *rec);
+                }
 		else {
-			patch[0].layers[i].null_cover = 1.0 - cover_fraction;
+			// patch[0].layers[i].null_cover = 1.0 - cover_fraction;
+			patch[0].layers[i].null_cover = min(max(1.0 - cover_fraction, 0), 1);
 		}
 	}
 	return;
