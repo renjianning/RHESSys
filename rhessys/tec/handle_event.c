@@ -175,7 +175,8 @@ void	handle_event(
 	}
 	else if ( !strcmp(event[0].command,"redefine_world_multiplier") ){
 		execute_redefine_world_mult_event(world, command_line, current_date);
-	}	
+		printf("redfine event \n");
+	}
 	else if ( !strcmp(event[0].command,"redefine_world_thin_remain") ){
 		execute_redefine_world_thin_event(world, command_line, current_date, 1);
 	}		

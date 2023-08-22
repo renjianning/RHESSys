@@ -780,7 +780,7 @@ struct	command_line_object	*construct_command_line(
                                 /*--------------------------------------------------------------*/
                                 /*                      Read in the world file name.                                            */
                                 /*--------------------------------------------------------------*/
-                                strcpy(command_line[0].redefine_filename,main_argv[i]);
+                                strcpy(command_line[0].redefine_filename, main_argv[i]);
 				i++;
 			} /*end if*/
 			/*--------------------------------------------------------------*/

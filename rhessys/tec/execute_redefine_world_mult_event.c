@@ -141,11 +141,11 @@ void	execute_redefine_world_mult_event(struct world_object *world,
 	strcat(world_input_filename, ext);
 	if ( (world_input_file = fopen(world_input_filename,"r")) == NULL ){
 		fprintf(stderr,
-			"FATAL ERROR:  Cannot open world  execute_redefine input file %s\n",
+			"FATAL ERROR:  Cannot open redefine mult event world  execute_redefine input file %s\n",
 			world_input_filename);
 		exit(EXIT_FAILURE);
 	} /*end if*/
-
+	printf("\n Redefine using %s \n", world_input_filename);
 	/*--------------------------------------------------------------*/
 	/*	Read in the world ID.							*/
 	/*--------------------------------------------------------------*/
@@ -406,4 +406,5 @@ void	execute_redefine_world_mult_event(struct world_object *world,
 	if ( fclose(world_input_file) != 0 )
 		exit(EXIT_FAILURE);
 	return;
+	printf("end of redfine event \n");
 } /*end execute_redefine_world_event.c*/

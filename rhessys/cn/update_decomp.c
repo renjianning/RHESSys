@@ -491,17 +491,17 @@ int update_decomp(
 	patch[0].surface_NH4 -=  N_uptake;
 	remaining_uptake -= N_uptake;
 
-	if (remaining_uptake > ZERO )
-       printf("N balance issue [n_to_npool %e], [[remaining upate %e], [patch ID %d], [totalNO3 %e], [totalNH4 %e], [ratio_NO3 %e], [ratio_NH4 %e], [patch.sat_NH4 %le, rtzSatNH4 %e], [patch.sat_NO3 %e, rtzSatNO3 %e], [ns_NO3 %e]\n",
-                                       ndf->sminn_to_npool, remaining_uptake, patch[0].ID, totalNO3, totalNH4, ratio_NO3, ratio_NH4, patch[0].sat_NH4, patch[0].rtzSatNH4, patch[0].sat_NO3, patch[0].rtzSatNO3, ns_soil->nitrate);
+	// if (remaining_uptake > ZERO )
+       //printf("N balance issue [n_to_npool %e], [[remaining upate %e], [patch ID %d], [totalNO3 %e], [totalNH4 %e], [ratio_NO3 %e], [ratio_NH4 %e], [patch.sat_NH4 %le, rtzSatNH4 %e], [patch.sat_NO3 %e, rtzSatNO3 %e], [ns_NO3 %e]\n",
+                                    //   ndf->sminn_to_npool, remaining_uptake, patch[0].ID, totalNO3, totalNH4, ratio_NO3, ratio_NH4, patch[0].sat_NH4, patch[0].rtzSatNH4, patch[0].sat_NO3, patch[0].rtzSatNO3, ns_soil->nitrate);
 	ndf->net_mineralized = daily_net_nmin;
 	total_N = ns_litr->litr1n + ns_litr->litr2n +  ns_litr->litr3n
 		+ ns_litr->litr4n + ns_soil->soil1n + ns_soil->soil2n
 		+ ns_soil->soil3n + ns_soil->soil4n + ns_soil->sminn + ns_soil->nitrate + patch[0].sat_NO3 + patch[0].sat_NH4;
 
 	balance = (total_preday_N)  - (total_N + ndf->sminn_to_npool);
-	if (abs(balance) > ZERO)
-		printf("\n Decomp N doesn't balance by %lf ", balance);
+	// if (abs(balance) > ZERO)
+		//printf("\n Decomp N doesn't balance by %lf ", balance);
 
 	/* calculate the fluxes out NREN 20190927 */
     cdf->litterc_to_atmos += cdf->litr1c_hr;
